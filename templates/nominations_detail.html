@@ -1,0 +1,259 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Номинация: {{ nomination.word | capitalize }}</h1>
+
+    <!-- ИНФОРМАЦИЯ О НОМИНАЦИИ -->
+    <h3 class="mt-5">Информация о номинации</h3>
+
+    {% if nomination.definitions %}
+    <h5 class="mt-3">Толкование</h5>
+    <ul>
+        {% for def in nomination.definitions %}
+        <li>
+            {{ def.definition }}
+            {% if def.source %}<em> ({{ def.source }})</em>{% endif %}
+            {% if def.status %}<small class="text-muted"> — {{ def.status }}</small>{% endif %}
+
+            {% if def.examples and def.examples | length > 0 %}
+            <a href="#" style="color: royalblue;" data-bs-toggle="modal" data-bs-target="#exampleDef{{ loop.index }}">
+                [показать пример]
+            </a>
+            <div class="modal fade" id="exampleDef{{ loop.index }}" tabindex="-1">
+              <div class="modal-dialog"><div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Пример</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                  {{ def.examples[0].example }}
+                  {% if def.examples[0].source %}
+                    <br><small><em>{{ def.examples[0].source }}</em></small>
+                  {% endif %}
+                </div>
+              </div></div>
+            </div>
+        {% endif %}
+
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    {% if nomination.origin %}
+    <h5 class="mt-3">Происхождение</h5>
+    <ul>
+        {% for o in nomination.origin %}
+        <li>
+            {{ o.origin }}
+            {% if o.example %}
+                <a href="#" style="color: royalblue;" data-bs-toggle="modal" data-bs-target="#originEx{{ loop.index }}">
+                    [показать пример]
+                </a>
+                <div class="modal fade" id="originEx{{ loop.index }}" tabindex="-1">
+                  <div class="modal-dialog"><div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Пример</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                      {{ o.example }}
+                      {% if o.source %}<br><small><em>{{ o.source }}</em></small>{% endif %}
+                    </div>
+                  </div></div>
+                </div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    <h5 class="mt-3">Род</h5>
+    <p>{{ nomination.gender }}</p>
+
+    <!-- СТАТИСТИКА -->
+    <h3 class="mt-5">Статистика</h3>
+
+    <h5 class="mt-3">Частотность</h5>
+    <p>{{ nomination.frequency }}</p>
+
+    {% if nomination.word_forms %}
+        <h5 class="mt-3">Корреляты</h5>
+
+        {% set gender_forms = nomination.word_forms | selectattr("correlate_type", "equalto", "гендерный коррелят") | list %}
+        {% set nest_forms = nomination.word_forms | selectattr("correlate_type", "equalto", "словообразовательное гнездо") | list %}
+        {% set expressive_forms = nomination.word_forms | selectattr("correlate_type", "equalto", "экспрессивный коррелят") | list %}
+
+
+        {% if gender_forms %}
+            <p><strong>Гендерные корреляты:</strong></p>
+            <ul>
+                {% for wf in gender_forms %}
+                    <li>
+                        {{ wf.word_form }}
+                        {% if wf.label %} — {{ wf.label }}{% endif %}
+                        {% if wf.sentence %}
+                            <a href="#" style="color: royalblue;" data-bs-toggle="modal" data-bs-target="#exampleGender{{ loop.index }}">
+                                [показать пример]
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if nest_forms %}
+            <p><strong>Словообразовательное гнездо:</strong></p>
+            <ul>
+                {% for wf in nest_forms %}
+                    <li>
+                        {{ wf.word_form }}
+                        {% if wf.label %} — {{ wf.label }}{% endif %}
+                        {% if wf.sentence %}
+                            <a href="#" style="color: royalblue;" data-bs-toggle="modal" data-bs-target="#exampleNest{{ loop.index }}">
+                                [показать пример]
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        {% if expressive_forms %}
+            <p><strong>Экспрессивные корреляты:</strong></p>
+            <ul>
+                {% for wf in expressive_forms %}
+                    <li>
+                        {{ wf.word_form }}
+                        {% if wf.label %} — {{ wf.label }}{% endif %}
+                        {% if wf.sentence %}
+                            <a href="#" style="color: royalblue;" data-bs-toggle="modal" data-bs-target="#exampleExpr{{ loop.index }}">
+                                [показать пример]
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+
+
+    <!-- УПОТРЕБЛЕНИЕ -->
+    {% if nomination.discource_zone %}
+    <h3 class="mt-5">Употребление</h3>
+
+    <p id="disc-text" class="mb-3">
+        {{ nomination.discource_zone }}
+    </p>
+    {% endif %}
+
+    {% for ex in nomination.discource_examples %}
+      <div class="modal fade" id="discEx{{ loop.index }}" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Пример</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <em>{{ ex.sentence }}</em>
+              {% if ex.source %}
+                <br><small><em>{{ ex.source }}</em></small>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <!-- Назад -->
+    <div class="mb-5">
+      <a href="{{ url_for('nominations_corpus') }}" class="btn btn-outline-primary mt-5">
+        ← Назад к списку
+      </a>
+    </div>
+
+
+    <!-- СКРИПТ для замены [1], [2], ... на ссылки-->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const container = document.getElementById("disc-text");
+        if (container) {
+            container.innerHTML = container.innerHTML.replace(/\[(\d+)\]/g, function(match, number) {
+                return `<a href="#" style="color: royalblue;" data-bs-toggle="modal" data-bs-target="#discEx${number}">[${number}]</a>`;
+            });
+        }
+    });
+    </script>
+
+    <!-- Модальные окна для коррелятов -->
+    {% for wf in gender_forms %}
+        {% if wf.sentence %}
+            <div class="modal fade" id="exampleGender{{ loop.index }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Пример</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ wf.sentence }}
+                            {% if wf.source %}
+                                <br><small><em>{{ wf.source }}</em></small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% for wf in nest_forms %}
+        {% if wf.sentence %}
+            <div class="modal fade" id="exampleNest{{ loop.index }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Пример</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ wf.sentence }}
+                            {% if wf.source %}
+                                <br><small><em>{{ wf.source }}</em></small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% for wf in expressive_forms %}
+        {% if wf.sentence %}
+            <div class="modal fade" id="exampleExpr{{ loop.index }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Пример</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ wf.sentence }}
+                            {% if wf.source %}
+                                <br><small><em>{{ wf.source }}</em></small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+
+
+</div>
+{% endblock %}

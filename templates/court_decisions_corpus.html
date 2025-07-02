@@ -1,0 +1,227 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <h1 class="text-center mb-4">Корпус судебных решений</h1>
+
+    <!-- ОПИСАНИЕ -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <p>Добро пожаловать!</p>
+            <p>Вы находитесь в разделе <span style="color: darkorange; font-weight: bold;">Корпуса судебных решений</span> — подкорпуса, посвящённого анализу юридических текстов: постановлений, решений, определений судов разных инстанций и уровней.</p>
+            <p>Корпус включает документы арбитражных судов, судов общей юрисдикции, Конституционного Суда РФ и Пленума Верховного Суда РФ. Он может использоваться для лингвистического анализа, юридических исследований и задач обработки естественного языка. <strong>Кликните на год, чтобы перейти к списку документов в соответствующей коллекции.</strong></p>
+
+            <!-- КНОПКА РАСКРЫТИЯ -->
+            <p>
+                <button class="btn btn-sm btn-outline-secondary"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#descriptionCollapse"
+                        aria-expanded="false"
+                        aria-controls="descriptionCollapse">
+                    Показать подробнее
+                </button>
+            </p>
+            <div class="collapse" id="descriptionCollapse">
+                <p>Корпус связан с платформой <a href="https://lawreadability.hse.ru" target="_blank">lawreadability.hse.ru</a>, где тексты анализируются по <strong>индексу синтаксической сложности (ИСЗ)</strong>. Это позволяет сравнивать тексты по сложности и структуре.</p>
+
+                <p>Некоторые коллекции размечены на внутренние смысловые фрагменты — это облегчает поиск, анализ и выявление паттернов юридического дискурса.</p>
+
+                <p><span style="color: darkorange; font-weight: bold;">Для кого предназначен корпус:</span></p>
+                <ul>
+                    <li>Лингвисты — анализ юридического языка и синтаксики;</li>
+                    <li>Юристы — анализ судебной практики и изменений права;</li>
+                    <li>NLP-разработчики — для обучения и тестирования моделей;</li>
+                    <li>Историки и социологи — для анализа изменений в языке права;</li>
+                    <li>Образовательные проекты и научные исследования.</li>
+                </ul>
+
+                <p><span style="color: darkorange; font-weight: bold;">Примеры применения:</span></p>
+                <ul>
+                    <li>Сравнение синтаксической сложности законов разных лет;</li>
+                    <li>Автоматизация анализа судебных актов;</li>
+                    <li>Изучение структуры юридических документов.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- ТАБЛИЦА 1 -->
+    <h4 class="mt-5 mb-3">Документы по видам судов</h4>
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered table-sm text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Вид судов</th>
+                    <th>Категории дел</th>
+                    <th>Коллекции по годам</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Пленум Верховного Суда СССР и РФ</td>
+                    <td>нет</td>
+                    <td>
+                        <a href="{{ url_for('court_collection_detail', id_collection=42) }}">1925–2022</a><br>
+                        <small>исчерпывающая коллекция со всеми постановлениями Пленума ВС РФ (СССР)</small><br>
+                        <strong>всего 696 текстов + 1 файл со статистикой</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Конституционный Суд РФ</td>
+                    <td>Конституционное судопроизводство (только постановления)</td>
+                    <td>
+                        <a href="{{ url_for('court_collection_detail', id_collection=35) }}">1995</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=36) }}">2000</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=37) }}">2005</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=38) }}">2010</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=39) }}">2015</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=40) }}">2020</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=41) }}">2022</a><br>
+                        <small>(за каждый соответствующий год в коллекцию отобраны все постановления Конституционного Суда РФ, которые он принял в этот год)</small><br>
+                        <strong>всего 210 текстов + 7 файлов со статистикой</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Верховный суд РФ</td>
+                    <td>Гражданские дела</td>
+                    <td>
+                        <a href="{{ url_for('court_collection_detail', id_collection=30) }}">1995</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=31) }}">2000</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=32) }}">2005</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=33) }}">2010</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=34) }}">2015</a><br>
+                        <small>(за каждый соответствующий год в коллекцию отобраны все решения Верховного Суда РФ по гражданским делам)</small><br>
+                        <strong>всего 647 текстов + 5 файлов со статистикой</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Административные дела</td>
+                    <td>
+                        <a href="{{ url_for('court_collection_detail', id_collection=28) }}">2020</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=29) }}">2022</a><br>
+                        <small>(за каждый соответствующий год в коллекцию отобраны все решения Верховного Суда РФ по административным делам)</small><br>
+                        <strong>всего 347 текстов + 2 файла со статистикой</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Пояснение -->
+    <p class="mb-4">
+        Ниже представлены коллекции, сформированные с использованием генератора случайных чисел и репрезентативной выборки территориального распределения
+        (в зависимости от численности населения — для судов общей юрисдикции, или от количества юридических лиц и ИП — для арбитражных судов).
+        Один год — 500 текстов (всего 13 500 текстов).
+    </p>
+
+    <!-- ТАБЛИЦА 2 -->
+    <h4 class="mb-3">Репрезентативные коллекции по годам и категориям</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Суды</th>
+                    <th>Категория дел</th>
+                    <th>Первая инстанция</th>
+                    <th>Апелляция</th>
+                    <th>Кассация</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- СОЮ -->
+                <tr>
+                    <td rowspan="4">СОЮ</td>
+                    <td>Уголовные дела</td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=15) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=13) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=14) }}">2022</a></td>
+                </tr>
+                <tr>
+                    <td>Гражданские дела</td>
+                    <td>
+                        <a href="{{ url_for('court_collection_detail', id_collection=25) }}">2010</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=26) }}">2015</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=27) }}">2020</a>.
+                        2022: <a href="{{ url_for('court_collection_detail', id_collection=18) }}">необработанные</a> /
+                        <a href="{{ url_for('court_collection_detail', id_collection=44) }}">обработанные</a>
+                    </td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=16) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=17) }}">2022</a></td>
+                </tr>
+                <tr>
+                    <td>Административные дела</td>
+                    <td>
+                        <a href="{{ url_for('court_collection_detail', id_collection=25) }}">2010</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=26) }}">2015</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=27) }}">2020</a>.
+                        2022: <a href="{{ url_for('court_collection_detail', id_collection=21) }}">необработанные</a> /
+                        <a href="{{ url_for('court_collection_detail', id_collection=45) }}">обработанные</a>
+                    </td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=19) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=20) }}">2022</a></td>
+                </tr>
+                <tr>
+                    <td>Дела об адм. правонарушениях</td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=24) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=22) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=23) }}">2022</a></td>
+                </tr>
+
+                <!-- Арбитражные суды -->
+                <tr>
+                    <td rowspan="3">Арбитражные суды</td>
+                    <td>Споры из гражданских правоотношений</td>
+                    <td>
+                        <a href="{{ url_for('court_collection_detail', id_collection=10) }}">2010</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=11) }}">2015</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=12) }}">2020</a>.
+                        2022: <a href="{{ url_for('court_collection_detail', id_collection=6) }}">необработанные</a> /
+                        <a href="{{ url_for('court_collection_detail', id_collection=46) }}">обработанные</a>
+                    </td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=4) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=5) }}">2022</a></td>
+                </tr>
+                <tr>
+                    <td>Споры по делам, возникающим из административных и иных публичных правоотношений</td>
+                    <td>
+                        <a href="{{ url_for('court_collection_detail', id_collection=10) }}">2010</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=11) }}">2015</a>,
+                        <a href="{{ url_for('court_collection_detail', id_collection=12) }}">2020</a>.
+                        2022: <a href="{{ url_for('court_collection_detail', id_collection=3) }}">необработанные</a> /
+                        <a href="{{ url_for('court_collection_detail', id_collection=47) }}">обработанные</a>
+                    </td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=1) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=2) }}">2022</a></td>
+                </tr>
+                <tr>
+                    <td>Дела об адм. правонарушениях</td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=9) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=7) }}">2022</a></td>
+                    <td><a href="{{ url_for('court_collection_detail', id_collection=8) }}">2022</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="my-5">
+
+    <h4>Общие статистические документы</h4>
+    <p>Ниже представлены сводные файлы, связанные с корпусом судебных решений:</p>
+
+    <ul class="list-group mb-5">
+        {% for doc in documents_43 %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ doc.filename }}</span>
+            <a href="{{ url_for('download_document', path_to_folder=doc.ftp_path) }}" class="btn btn-outline-secondary btn-sm">
+                ⬇️ Скачать
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+
+</div>
+{% endblock %}
