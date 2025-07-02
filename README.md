@@ -4,7 +4,7 @@ _Only displaying the parts that I did in this project. Get the full repository a
 
 
 
-This is a part of a project by our team. We created a website with several subcorpuses, each of them working in with a different database and displaying the data gathered by linguists. The code features use of SQL, Jinja2, Bootstrap and Flask.
+This is a part of a project by our team. We created a website with several subcorpuses, each of them working in with a different database and displaying the data gathered by linguists. The code features use of **SQL**, **Jinja2**, **Bootstrap** and **Flask**.
 
 The parts that I realized are:
 ### Nominations corpus
@@ -20,4 +20,4 @@ This is an archive of court documents from several different instances of Russia
 - Hub page with the description, statistics on all corpus and two tables, containing links to all combinations of years and instances.
 - Template for rendering a page for a specific year and court instance. This page features a "download all" and "view" and "download" for each document.
 - Pagination for displaying large quantities of documents.
-- Filter by year used when searching through large quantities of documents.
+- Filter by year used when searching through large quantities of documents. Features a "download selected" button.
