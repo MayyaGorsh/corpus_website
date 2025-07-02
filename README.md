@@ -17,6 +17,7 @@ This is a vast dictionary of words that people use for labeling others. It featu
 ### Court descision corpus
 
 This is an archive of court documents from several different instances of Russian court. It features:
+- Live access to a database with all documents through SQL
 - Hub page with the description, statistics on all corpus and two tables, containing links to all combinations of years and instances.
 - Template for rendering a page for a specific year and court instance. This page features a "download all" and "view" and "download" for each document.
 - Pagination for displaying large quantities of documents.
