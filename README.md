@@ -1,7 +1,7 @@
 # Website - Russian language speech practice corpus
 
-Only displaying the parts that I did in this project. Get the full repository at /yudinatatiana/big_project_corpora
-
+_Only displaying the parts that I did in this project. Get the full repository at [/yudinatatiana/big_project_corpora](https://github.com/yudinatatiana/big_project_corpora/tree/main)
+_
 This is a part of a project by our team. We created a website with several subcorpuses, each of them working in with a different database and displaying the data gathered by linguists. The code features use of SQL, Jinja2, Bootstrap and Flask.
 
 The parts that I realized are:
